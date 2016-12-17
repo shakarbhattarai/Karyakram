@@ -1,0 +1,95 @@
+
+/* Basic Grey */
+ 
+.basic-grey {
+   
+    margin-right:5%;
+     margin-left: 5%;
+     margin-top:0%;
+     		
+    background:#f4f4f4;
+    padding: 25px 125px 25px 10px;
+    
+    color: #823329;
+    text-shadow: .1px .1px .1px #2196f3;
+    
+}
+.basic-grey h1 {
+    font-size: 25px;
+    padding: 22px 0px 10px 40px;
+    display: block;
+    border-bottom:2px solid #222;
+    margin: 8px -15px 30px -10px; 
+    color: #23022E;
+   
+}
+.basic-grey h1>span {
+    display: block;
+    font-size: 11px;
+    
+    
+}
+.basic-grey label {
+    display: block;
+    margin: 0px;
+}
+.basic-grey label>span {
+    float: left;
+    width: 20%;
+    text-align: left;
+    padding-right: 10px;
+    margin-top: 10px;
+    color: #23022E;
+    font-size: 15px;
+}
+.basic-grey input[type="text"], .basic-grey input[type="email"], .basic-grey textarea {
+    border: 1px solid #DADADA;
+    color: #038z;
+    font-family: 'Montserrat', sans-serif;
+    height: 30px;
+    margin-bottom: 16px;
+    margin-right: 6px;	
+    margin-top: 2px;
+    outline: 0 none;
+    padding: 3px 3px 3px 5px;
+    width: 70%;
+    font-size: 12px;
+    line-height:15px;
+    box-shadow: inset 4px 4px 4px #ECECEC;
+    -moz-box-shadow: inset 0px 1px 4px #ECECEC;
+    -webkit-box-shadow: inset 0px 1px 4px #ECECEC;
+}
+.basic-grey textarea{
+    padding: 5px 3px 3px 5px;
+    
+}
+.basic-grey select {
+   
+  border: 1px solid #111;
+  background: transparent;
+  width: 150px;
+   
+  font-size: 9 px;
+  border: 1px solid #ccc;
+  height: 34px;
+   width: 70%;
+   
+}
+.basic-grey textarea{
+    height:100px;
+    color: #038;
+    font-family: 'Montserrat', sans-serif;
+}
+.basic-grey .button {
+    background:  #2962ff;
+    border: none;
+    padding: 10px 25px 10px 25px;
+    color: #FFF;
+    box-shadow: 1px 1px 5px #B6B6B6;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px #9E3F3F;
+    cursor: pointer;
+}
+.basic-grey .button:hover {
+    background: #CF7A7A
+}

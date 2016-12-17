@@ -1,0 +1,167 @@
+<?php
+    $id=$_GET['id'];
+    $query = "SELECT Organizes.Organizer_Id,Event_name,Event_Picture,Event_Description,Venue.Name As VenueName,Venue.Address as VenueAddress, Venue.Phone_Number as VenueNumber,Venue.Website as VenueSite,Organizer.Name as OrganizerName,Organizer.Email as OrganizerEmail \n"
+    . "\n"
+    . "FROM\n"
+    . "((((Events NATURAL JOIN takesplace) "
+            . "NATURAL JOIN Venue)NATURAL JOIN Organizes)JOIN Organizer ON Organizes.Organizer_id=Organizer.Organizer_id)WHERE Events.Event_id=$id ";
+    $categoryquery= "SELECT Type_id,Category FROM Category NATURAL JOIN ISA WHERE Event_id=$id";  
+    $database="Karyakram";
+    $username="root";
+    $servername="localhost";
+    $password="shakar";
+    
+    $final_array=array();
+// Create connection
+$connection = new mysqli($servername, $username, $password, $database);
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+} 
+    $alldata=$connection->query($query);
+    while ($eacheventarray=$alldata->fetch_assoc()){
+    
+    $final_array[]=$eacheventarray;
+    $orgid=$eacheventarray['Organizer_Id'];
+    }
+    
+    $queryphone="SELECT PhoneNumber FROM PhoneNumber WHERE Organizer_id=$orgid"; 
+    $phonedata=$connection->query($queryphone);
+    $phonenumbers=" "; 
+    while ($eacheventarray=$phonedata->fetch_assoc()){
+    
+     
+    $phonenumber=$eacheventarray['PhoneNumber'];
+     
+    $phonenumbers=$phonenumbers.$phonenumber." , ";
+    }
+    $final_array[0]['organizernumber']=$phonenumbers;
+ 
+     
+    $categoryabc=$connection->query($categoryquery);
+     
+    while ($eacheventarrays=$categoryabc->fetch_assoc()){
+    
+    $category=$eacheventarrays['Category'];
+    $type_id=$eacheventarrays['Type_id'];
+    
+} 
+ 
+ 
+    
+    if ($category==("Educational")){
+        $queryedu="Select * FROM Educational WHERE ID=$type_id";
+        
+        $targetlevel=$connection->query($queryedu);
+         while ($eachtargetarray=$targetlevel->fetch_assoc()){
+            $field1="Target Level: ".$eachtargetarray['TargetLevel'];
+            $final_array[0]['fieldone']=$field1;
+            $fiedl2=$eacheventarray['Description'];
+            
+             
+         }
+         
+    }
+    else if ($category=="Entertainment"){
+        $querycat="SELECT* FROM Entertainment WHERE ID=$type_id";
+        $category=$connection->query($querycat) ;
+         while ($eachtargetarray=$category->fetch_assoc()){
+            $field1=$eachtargetarray['TargetAgeLow']; 
+            $field2=$eachtargetarray['TargetAgeHigh'];
+             $prices=$eachtargetarray['TicketPrice'];
+             
+            $final_array[0]['fieldone']="Target Age:".$field1."to".$field2 ;
+            $final_array[0 ]['fieldtwo']="Ticket Price:$prices" ;
+            
+             $query="SELECT * FROM isasub NATURAL JOIN subcat WHERE subcat.Entertainment_id=$type_id";
+              
+             $subcat=$connection->query($query);
+             while ($eachtargetarray=$subcat->fetch_assoc()){
+               $subcategory=$eachtargetarray['SubCategory'];
+                $subcatid= $eachtargetarray['Sub-cat_id'];
+             }
+              
+             if ($subcategory=="Sports") {
+                  $querysp="SELECT * FROM Sports WHERE Sports_id=$subcatid;";
+                  $sportsdata=$connection->query($querysp) ;
+                  while ($eachtargetarray=$sportsdata->fetch_assoc()){
+                   $teama=$eachtargetarray['Team_A'];
+                   $teamb=$eachtargetarray['Team_B'];
+                   $spname=$eachtargetarray['Sports_Name'];
+                   $tourname=$eachtargetarray['Tournament_Name'];
+                   $tourpos=$eachtargetarray['Tournament_Position'];
+             }
+               
+              $final_array[0 ]['fieldthree']=$teama." Vs ".$teamb ;  
+              $final_array[0 ]['fieldfour']=$spname ;
+              $final_array[0 ]['fieldfive']=$tourpos." of " .$tourname ;
+                 
+                 
+             }
+             else if ($subcategory=="Concert"){
+                 
+                 $querysp="SELECT * FROM Concert WHERE ID=$subcatid;";
+                  $sportsdata=$connection->query($querysp) ;
+                  while ($eachtargetarray=$sportsdata->fetch_assoc()){
+                   $genre=$eachtargetarray['Genre'];
+                    
+             }
+                 $performersq="SELECT Performer FROM Performers WHERE Id=$subcatid;";
+                   $performerres=$connection->query($performersq) ;
+                while ($eachtargetarray=$performerres->fetch_assoc()){
+                   $perfone=$eachtargetarray['Performer'];
+                   $performers=$performers.$perfone." , ";
+                    
+             }
+                 
+              $final_array[0 ]['fieldthree']="Genre:".$genre ;  
+              $final_array[0 ]['fieldfour']="Featuring: ".$performers ;
+                  
+              
+                 
+                 
+             }
+             else if ($subcategory=="Party"){
+                  
+                 $querysparty="SELECT * FROM Party WHERE ID=$subcatid;";
+                  $partydata=$connection->query($querysparty) ;
+                  while ($eachtargetarray=$partydata->fetch_assoc()){
+                   $theme=$eachtargetarray['Theme'];
+                   $supplem=$eachtargetarray['Supplementary'];
+                    
+             }
+             
+                  $final_array[0 ]['fieldthree']="Theme:".$theme ;  
+                 $final_array[0 ]['fieldfour']="Supplementary: ".$supplem ;
+                 
+                 
+             }
+              
+         }
+             
+            
+             
+         }
+        
+        
+        
+     
+        
+         
+        
+        
+        
+        
+        
+       // $final_array["field1"]= 
+        
+      
+     
+    
+    print_r(json_encode($final_array));
+     
+    ?>
+    
+    
+ 
+ 

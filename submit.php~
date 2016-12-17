@@ -1,0 +1,144 @@
+<?php
+$servername="localhost";
+$database="Karyakram";
+$username="root";
+$password="shakar";
+
+// Create connection
+$connection = new mysqli($servername, $username, $password, $database);
+// Check connection
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+} 
+
+// Getting organizer's information
+
+$organizer_name=$_POST["org_name"];
+$organizer_email=$_POST["org_email"];
+$organizer_number=$_POST["org_number"];
+
+//Getting event's information
+$event_name=$_POST["event_name"];
+$event_picture=$_POST["event_pic"];
+$event_desc=$_POST["event_desc"];
+$event_category=$_POST["event_cat"];
+
+//Getting venue's information
+echo  $event_category;
+
+?>
+
+<!--
+<html>
+<head> 
+<title></title>
+<link href="web/css/formstyle.css" rel="stylesheet" type="text/css" media="all" />
+<link href="web/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+ <body >
+  
+ <div class="header-top">
+	<div class="wrap">
+        <div class="logo">
+			<a href="index.html"><img src="web/images/logo.png" alt=""/></a>
+		</div>
+		<div class="cssmenu">
+		  <nav id="nav" role="navigation">
+			<a href="#nav" title="Show navigation">Show navigation</a>
+			<a href="#" title="Hide navigation">Hide navigation</a>
+			<ul class="clearfix">
+				<li class="active"><a href="index.html"> </a></li>
+				<li><span> </span></a></li>
+				<li><span> </span></a></li>
+				<li></li>
+				<li></li>
+				<div class="clear"></div>
+			</ul>
+		    </nav>
+		  </div>
+		  <div class="buttons">
+				<div class="login_btn">
+					<a href="login.html">Browse events</a>
+				</div>
+				<div class="get_btn">
+					<a href="form.html">Get Listed Today</a>
+				</div>
+				<div class="clear"></div>
+		   </div>
+	     <div class="clear"></div>
+		<h2 class="head">Welcome <span class="m_1">to karyakram </span></h2> <br><h3 class="head">Find all the Events, you will want <span class="m_1">to attend</span></h3>
+     </div>
+    </div>
+    <fieldset >
+    <legend>   <h4 class="head"   > Fill out accurate details to the fields below:</h4>   </legend>
+    <div  class="main" >
+  <form action="submit.php" method="post"  >
+  <h1 class="basic-grey"> Step 2 of 2</h1>
+  <fieldset class="basic-grey">
+    <h1>Organizer 
+        
+    </h1>
+    <label>
+        <span > Name :</span>
+        <input  type="text" name="org_name" placeholder="Full Name of the Organizer" required />
+    </label>
+   
+    <label>
+        <span>Email :</span>
+        <input type="email" name="org_email" placeholder="Valid Email Address" />
+    </label>
+   
+    <label>
+        <span>Contact Number  :</span>
+        <input id="contact" type="text" name="org_number" placeholder="Valid Contact Number with country code" />
+    </label>
+      
+   
+    </fieldset>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+<?php
+$sql = "INSERT INTO Organizer (Name,Email,Contact_no)
+VALUES ('$organizer_name','$organizer_email','$organizer_number');";
+
+if ($connection->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $connection->error;
+}
+
+$connection->close();
+?> 
+*/
